@@ -1,5 +1,5 @@
 # These are the columns that YNAB expects
-ynab_cols = ['Date','Payee','Category','Memo','Outflow','Inflow']
+ynab_cols = ['Date','Payee','Memo','Amount']
 
 # Converts a string value into a number.
 # Filters out all special characters like $ or ,
@@ -18,7 +18,7 @@ numberfy = (val) ->
     val
 
 # Uses moment.js to parse and format the date into the correct format
-parseDate = (val) -> moment(val).format('MM/DD/YYYY') if val && val.length > 0
+parseDate = (val) -> moment(val).format('YYYY-MM-DD') if val && val.length > 0
 
 
 # This class does all the heavy lifting.
@@ -58,18 +58,8 @@ class window.DataObject
             #   the rest are just returned as they are.
             switch col
               when 'Date' then tmp_row[col] = parseDate(cell)
-              when 'Outflow'
-                number = numberfy(cell)
-                if lookup['Outflow'] == lookup['Inflow']
-                  tmp_row[col] = Math.abs(number) if number < 0
-                else
-                  tmp_row[col] = number
-              when 'Inflow'
-                number = numberfy(cell)
-                if lookup['Outflow'] == lookup['Inflow']
-                  tmp_row[col] = number if number > 0
-                else
-                  tmp_row[col] = number
+              when 'Amount'
+                tmp_row[col] = numberfy(cell)
               else tmp_row[col] = cell
 
           value.push(tmp_row)
