@@ -16,7 +16,7 @@ angular.element(document).ready ->
             scope.fileread = loadEvent.target.result
 
 
-        reader.readAsText changeEvent.target.files[0]
+        reader.readAsText changeEvent.target.files[0], 'windows-1250'
 
   ]
 
@@ -50,7 +50,7 @@ angular.element(document).ready ->
           scope.$apply ->
             scope.dropzone = loadEvent.target.result
 
-        reader.readAsText event.dataTransfer.files[0]
+        reader.readAsText event.dataTransfer.files[0], 'windows-1250'
 
   ]
 
@@ -76,7 +76,7 @@ angular.element(document).ready ->
       a           = document.createElement('a')
       a.href      = 'data:attachment/csv;base64,' + btoa(unescape(encodeURIComponent($scope.csvString())))
       a.target    = '_blank'
-      a.download  = 'ynab_data.csv'
+      a.download  = "ynab_data_#{moment().format('YYYYMMDD')}.csv"
 
       document.body.appendChild(a)
       a.click()
