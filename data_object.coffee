@@ -1,23 +1,6 @@
 # These are the columns that YNAB expects
 ynab_cols = ['Date','Payee','Memo','Amount']
 
-# Converts a string value into a number.
-# Filters out all special characters like $ or ,
-numberfy = (val) ->
-  # Convert val into empty string if it is undefined or null
-  if !val?
-    return ''
-
-  if isNaN(val)
-    # check for negative signs or parenthases.
-    is_negative = if (val.match("-") || val.match(/\(.*\)/)) then -1 else 1
-    # remove any commas
-    val = val.replace(/,/g, "")
-    # return just the number and make it negative if needed.
-    +(val.match(/\d+.?\d*/)[0]) * is_negative
-  else
-    val
-
 # Uses moment.js to parse and format the date into the correct format
 parseDate = (val) -> moment(val).format('YYYY-MM-DD') if val && val.length > 0
 
@@ -60,7 +43,7 @@ class window.DataObject
             switch col
               when 'Date' then tmp_row[col] = parseDate(cell)
               when 'Amount'
-                tmp_row[col] = numberfy(cell)
+                tmp_row[col] = accounting.parse(cell)
               else tmp_row[col] = cell
 
           value.push(tmp_row)
