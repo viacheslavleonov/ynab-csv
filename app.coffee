@@ -15,9 +15,7 @@ angular.element(document).ready ->
           scope.$apply ->
             scope.fileread = loadEvent.target.result
 
-
-        reader.readAsText changeEvent.target.files[0], 'windows-1250'
-
+        reader.readAsText changeEvent.target.files[0]
   ]
 
   angular.module("app").directive "dropzone", [->
@@ -50,8 +48,7 @@ angular.element(document).ready ->
           scope.$apply ->
             scope.dropzone = loadEvent.target.result
 
-        reader.readAsText event.dataTransfer.files[0], 'windows-1250'
-
+        reader.readAsText event.dataTransfer.files[0]
   ]
 
 
@@ -68,7 +65,8 @@ angular.element(document).ready ->
     $scope.data_object = new DataObject()
 
     $scope.$watch 'data.source', (newValue, oldValue) ->
-      $scope.data_object.parse_csv(newValue) if newValue && newValue.length > 0
+      if newValue && newValue.length > 0
+        $scope.data_object.parse_csv(newValue)
 
     $scope.export = (limit) -> $scope.data_object.converted_json(limit, $scope.ynab_map)
     $scope.csvString = -> $scope.data_object.converted_csv(null, $scope.ynab_map)

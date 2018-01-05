@@ -6,7 +6,8 @@ ynab_cols = ['Date','Payee','Memo','Amount']
 numberfy = (val) ->
   # Convert val into empty string if it is undefined or null
   if !val?
-    val = ''
+    return ''
+
   if isNaN(val)
     # check for negative signs or parenthases.
     is_negative = if (val.match("-") || val.match(/\(.*\)/)) then -1 else 1
@@ -29,7 +30,7 @@ class window.DataObject
 
   # Parse base csv file as JSON. This will be easier to work with.
   # It uses http://papaparse.com/ for handling parsing
-  parse_csv: (csv) -> @base_json = Papa.parse(csv, {"header": true})
+  parse_csv: (csv) -> @base_json = Papa.parse(csv, {"skipEmptyLines": true, "header": true})
   fields: -> @base_json.meta.fields
   rows: -> @base_json.data
 
