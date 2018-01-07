@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div dropzone='data.source'>
+    <div dropzone='data.source' encoding="{{file.chosenEncoding}}">
       <div class='container show_on_load'>
         <br>
         <div id='upload_wrapper' ng-if='!data_object.base_json'>
@@ -40,7 +40,7 @@
             <!-- <div class='btn btn-primary'>Or Choose</div> -->
             <div class='fileUpload btn btn-primary'>
               <span>Or Choose <i class='fa fa-folder-open'></i></span>
-              <input id='file' type='file' fileread='data.source' />
+              <input id='file' type='file' fileread='data.source' encoding="{{file.chosenEncoding}}"/>
             </div>
 
             <div class="form-group">

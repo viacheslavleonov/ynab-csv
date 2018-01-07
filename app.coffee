@@ -15,7 +15,7 @@ angular.element(document).ready ->
           scope.$apply ->
             scope.fileread = loadEvent.target.result
 
-        reader.readAsText changeEvent.target.files[0]
+        reader.readAsText changeEvent.target.files[0], attributes.encoding
   ]
 
   angular.module("app").directive "dropzone", [->
@@ -48,7 +48,7 @@ angular.element(document).ready ->
           scope.$apply ->
             scope.dropzone = loadEvent.target.result
 
-        reader.readAsText event.dataTransfer.files[0]
+        reader.readAsText event.dataTransfer.files[0], attributes.encoding
   ]
 
 

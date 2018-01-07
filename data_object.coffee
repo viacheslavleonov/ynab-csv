@@ -16,8 +16,7 @@ class window.DataObject
   parse_csv: (csv, encoding) ->
     @base_json = Papa.parse(csv, {
       "skipEmptyLines": true,
-      "header": true,
-      "encoding": encoding
+      "header": true
     })
   fields: -> @base_json.meta.fields
   rows: -> @base_json.data
