@@ -59,10 +59,10 @@ class window.DataObject
   converted_csv: (limit, lookup) ->
     return nil if @base_json == null
     # Papa.unparse string
-    string = ynab_cols.join(',') + "\n"
+    string = '"' + ynab_cols.join('","') + '"\n'
     @.converted_json(limit, lookup).forEach (row) ->
       row_values = []
       ynab_cols.forEach (col) ->
         row_values.push row[col]
-      string += row_values.join(',') + "\n"
+      string += '"' + row_values.join('","') + '"\n'
     string
