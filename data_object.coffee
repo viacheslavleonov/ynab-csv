@@ -13,7 +13,12 @@ class window.DataObject
 
   # Parse base csv file as JSON. This will be easier to work with.
   # It uses http://papaparse.com/ for handling parsing
-  parse_csv: (csv) -> @base_json = Papa.parse(csv, {"skipEmptyLines": true, "header": true})
+  parse_csv: (csv, encoding) ->
+    @base_json = Papa.parse(csv, {
+      "skipEmptyLines": true,
+      "header": true,
+      "encoding": encoding
+    })
   fields: -> @base_json.meta.fields
   rows: -> @base_json.data
 
@@ -43,7 +48,10 @@ class window.DataObject
             switch col
               when 'Date' then tmp_row[col] = parseDate(cell)
               when 'Amount'
-                tmp_row[col] = accounting.parse(cell)
+                if cell && cell.length > 0
+                  tmp_row[col] = accounting.parse(cell)
+                else
+                  tmp_row[col] = cell
               else tmp_row[col] = cell
 
           value.push(tmp_row)

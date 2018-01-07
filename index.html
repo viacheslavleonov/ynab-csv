@@ -12,7 +12,7 @@
     <script type="text/javascript" src="lib/papaparse.min.js"></script>
     <script type="text/javascript" src="lib/moment.min.js"></script>
     <script type="text/javascript" src="lib/accounting.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
 
     <script type="text/coffeescript" src="./data_object.coffee"></script>
     <script type="text/coffeescript" src="./app.coffee"></script>
@@ -36,11 +36,21 @@
         <div id='upload_wrapper' ng-if='!data_object.base_json'>
           <div id='drop_text'>Drop File</div>
           <br>
-          <!-- <div class='btn btn-primary'>Or Choose</div> -->
-          <div class='fileUpload btn btn-primary'>
-            <span>Or Choose <i class='fa fa-folder-open'></i></span>
-            <input id='file' type='file' fileread='data.source' />
-          </div>
+          <form class="form-inline">
+            <!-- <div class='btn btn-primary'>Or Choose</div> -->
+            <div class='fileUpload btn btn-primary'>
+              <span>Or Choose <i class='fa fa-folder-open'></i></span>
+              <input id='file' type='file' fileread='data.source' />
+            </div>
+
+            <div class="form-group">
+              <label class="sr-only" for="file.encoding">File encoding</label>
+              <select ng-model="file.chosenEncoding"
+                      ng-options="enc for enc in file.encodings track by enc"
+                      class="form-control">
+              </select>
+            </div>
+          </form>
         </div>
 
         <div id='tool_wrapper' ng-if='data_object.base_json'>
@@ -49,6 +59,12 @@
             <div class="panel-heading"><strong>YNAB Data</strong> <em>(1st 10 rows)</em></div>
             <div class='table-container'>
               <table class='table'>
+                <colgroup>
+                    <col class="col-md-2">
+                    <col class="col-md-4">
+                    <col class="col-md-4">
+                    <col class="col-md-2">
+                </colgroup>
                 <thead>
                   <tr>
                     <th ng-repeat='col in ynab_cols'>

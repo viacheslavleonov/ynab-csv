@@ -62,11 +62,16 @@ angular.element(document).ready ->
       Payee:    'Payee'
       Memo:     'Memo'
       Outflow:  'Amount'
+
+    $scope.file =
+      encodings: ['UTF-8', 'ISO-8859-1', 'windows-1250']
+      chosenEncoding: 'UTF-8'
+
     $scope.data_object = new DataObject()
 
     $scope.$watch 'data.source', (newValue, oldValue) ->
       if newValue && newValue.length > 0
-        $scope.data_object.parse_csv(newValue)
+        $scope.data_object.parse_csv(newValue, $scope.file.chosenEncoding)
 
     $scope.export = (limit) -> $scope.data_object.converted_json(limit, $scope.ynab_map)
     $scope.csvString = -> $scope.data_object.converted_csv(null, $scope.ynab_map)
