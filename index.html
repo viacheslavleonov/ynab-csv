@@ -16,6 +16,15 @@
 
     <script type="text/coffeescript" src="./data_object.coffee"></script>
     <script type="text/coffeescript" src="./app.coffee"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112130993-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-112130993-1');
+    </script>
   </head>
   <body ng-controller='ParseController' ng-class="{angular_loaded: angular_loaded}">
 
