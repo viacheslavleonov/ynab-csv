@@ -8,14 +8,13 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 
     <link rel="stylesheet" type="text/css" href="./app.css" />
-    <script type="text/javascript" src="lib/coffeescript.js"></script>
     <script type="text/javascript" src="lib/papaparse.min.js"></script>
     <script type="text/javascript" src="lib/moment.min.js"></script>
     <script type="text/javascript" src="lib/accounting.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.js"></script>
 
-    <script type="text/coffeescript" src="./data_object.coffee"></script>
-    <script type="text/coffeescript" src="./app.coffee"></script>
+    <script src="./data_object.js"></script>
+    <script src="./app.js"></script>
     <script src="https://d3tvtfb6518e3e.cloudfront.net/3/opbeat.min.js"
         data-org-id="1e81854d04cb41269d776ad75dd01a9c"
         data-app-id="6fd115e6f0">
@@ -87,7 +86,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat='row in export(10)'>
+                  <tr ng-repeat='row in preview'>
                     <td ng-repeat='col in ynab_cols'>
                       <span>{{row[col]}}</span>
                     </td>
