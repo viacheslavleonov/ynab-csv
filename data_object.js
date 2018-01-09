@@ -45,7 +45,7 @@ window.DataObject = class DataObject {
   converted_json(limit, lookup) {
     var value;
     if (this.base_json === null) {
-      return nil;
+      return null;
     }
     value = [];
     // TODO: You might want to check for errors. Papaparse has an errors field.
