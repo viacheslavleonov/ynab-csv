@@ -11,6 +11,16 @@ var encodings = [
   "replacement", "UTF-16BE", "UTF-16LE", "x-user-defined"
 ]
 
+Date.prototype.yyyymmdd = function() {
+  var mm = this.getMonth() + 1; // getMonth() is zero-based
+  var dd = this.getDate();
+
+  return [this.getFullYear(),
+          (mm>9 ? '' : '0') + mm,
+          (dd>9 ? '' : '0') + dd
+         ].join('');
+};
+
 angular.element(document).ready(function() {
   angular.module("app", []);
   angular.module("app").directive("fileread", [
@@ -80,13 +90,14 @@ angular.element(document).ready(function() {
   // Application code
   angular.module("app").controller("ParseController", function($scope) {
     $scope.angular_loaded = true;
-    $scope.ynab_cols = ["Date", "Payee", "Memo", "Amount"];
+    $scope.ynab_cols = ["Date", "Payee", "Memo", "Outflow", "Inflow"];
     $scope.data = {};
     $scope.ynab_map = {
       Date: "Date",
       Payee: "Payee",
       Memo: "Memo",
-      Outflow: "Amount"
+      Outflow: "Outflow",
+      Inflow: "Inflow"
     };
     $scope.file = {
       encodings: encodings,
@@ -111,12 +122,13 @@ angular.element(document).ready(function() {
     };
     $scope.downloadFile = function() {
       var a;
+      var date = new Date();
       a = document.createElement("a");
       a.href =
         "data:attachment/csv;base64," +
         btoa(unescape(encodeURIComponent($scope.csvString())));
       a.target = "_blank";
-      a.download = `ynab_data_${moment().format("YYYYMMDD")}.csv`;
+      a.download = `ynab_data_${date.yyyymmdd()}.csv`;
       document.body.appendChild(a);
       a.click();
     };

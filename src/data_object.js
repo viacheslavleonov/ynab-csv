@@ -1,14 +1,7 @@
 // These are the columns that YNAB expects
-var parseDate, ynab_cols;
+var ynab_cols;
 
-ynab_cols = ["Date", "Payee", "Memo", "Amount"];
-
-// Uses moment.js to parse and format the date into the correct format
-parseDate = function(val) {
-  if (val && val.length > 0) {
-    return moment(val).format("YYYY-MM-DD");
-  }
-};
+ynab_cols = ["Date", "Payee", "Memo", "Outflow", "Inflow"];
 
 // This class does all the heavy lifting.
 // It takes the and can format it into csv
@@ -60,12 +53,16 @@ window.DataObject = class DataObject {
             // Some YNAB columns need special formatting,
             //   the rest are just returned as they are.
             switch (col) {
-              case "Date":
-                tmp_row[col] = parseDate(cell);
+              case "Outflow":
+                if (lookup['Outflow'] == lookup['Inflow']) {
+                  tmp_row[col] = cell.startsWith('-') ? cell.slice(1) : "";
+                } else {
+                  tmp_row[col] = cell;
+                }
                 break;
-              case "Amount":
-                if (cell && cell.length > 0) {
-                  tmp_row[col] = accounting.parse(cell);
+              case "Inflow":
+                if (lookup['Outflow'] == lookup['Inflow']) {
+                  tmp_row[col] = cell.startsWith('-') ? "" : cell;
                 } else {
                   tmp_row[col] = cell;
                 }
