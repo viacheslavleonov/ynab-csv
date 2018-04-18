@@ -1,7 +1,7 @@
 // These are the columns that YNAB expects
 var ynab_cols;
 
-ynab_cols = ["Date", "Payee", "Memo", "Outflow", "Inflow"];
+ynab_cols = ["Date", "Payee", "Memo", "Amount"];
 
 // This class does all the heavy lifting.
 // It takes the and can format it into csv
@@ -50,26 +50,7 @@ window.DataObject = class DataObject {
           ynab_cols.forEach(function(col) {
             var cell;
             cell = row[lookup[col]];
-            // Some YNAB columns need special formatting,
-            //   the rest are just returned as they are.
-            switch (col) {
-              case "Outflow":
-                if (lookup['Outflow'] == lookup['Inflow']) {
-                  tmp_row[col] = cell.startsWith('-') ? cell.slice(1) : "";
-                } else {
-                  tmp_row[col] = cell;
-                }
-                break;
-              case "Inflow":
-                if (lookup['Outflow'] == lookup['Inflow']) {
-                  tmp_row[col] = cell.startsWith('-') ? "" : cell;
-                } else {
-                  tmp_row[col] = cell;
-                }
-                break;
-              default:
-                tmp_row[col] = cell;
-            }
+            tmp_row[col] = cell;
           });
           value.push(tmp_row);
         }

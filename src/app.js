@@ -90,14 +90,13 @@ angular.element(document).ready(function() {
   // Application code
   angular.module("app").controller("ParseController", function($scope) {
     $scope.angular_loaded = true;
-    $scope.ynab_cols = ["Date", "Payee", "Memo", "Outflow", "Inflow"];
+    $scope.ynab_cols = ["Date", "Payee", "Memo", "Amount"];
     $scope.data = {};
     $scope.ynab_map = {
       Date: "Date",
       Payee: "Payee",
       Memo: "Memo",
-      Outflow: "Outflow",
-      Inflow: "Inflow"
+      Amount: "Amount"
     };
     $scope.file = {
       encodings: encodings,
