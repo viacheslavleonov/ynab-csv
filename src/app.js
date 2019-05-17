@@ -1,24 +1,57 @@
 // see http://stackoverflow.com/questions/2897619/using-html5-javascript-to-generate-and-save-a-file
 // see http://stackoverflow.com/questions/18662404/download-lengthy-data-as-a-csv-file
 var encodings = [
-  "UTF-8", "IBM866", "ISO-8859-2", "ISO-8859-3", "ISO-8859-4", "ISO-8859-5",
-  "ISO-8859-6", "ISO-8859-7", "ISO-8859-8", "ISO-8859-8-I", "ISO-8859-10",
-  "ISO-8859-13", "ISO-8859-14", "ISO-8859-15", "ISO-8859-16", "KOI8-R",
-  "KOI8-U", "macintosh", "windows-874", "windows-1250", "windows-1251",
-  "windows-1252", "windows-1253", "windows-1254", "windows-1255",
-  "windows-1256", "windows-1257", "windows-1258", "x-mac-cyrillic", "GBK",
-  "gb18030", "Big5", "EUC-JP", "ISO-2022-JP", "Shift_JIS", "EUC-KR",
-  "replacement", "UTF-16BE", "UTF-16LE", "x-user-defined"
-]
+  "UTF-8",
+  "IBM866",
+  "ISO-8859-2",
+  "ISO-8859-3",
+  "ISO-8859-4",
+  "ISO-8859-5",
+  "ISO-8859-6",
+  "ISO-8859-7",
+  "ISO-8859-8",
+  "ISO-8859-8-I",
+  "ISO-8859-10",
+  "ISO-8859-13",
+  "ISO-8859-14",
+  "ISO-8859-15",
+  "ISO-8859-16",
+  "KOI8-R",
+  "KOI8-U",
+  "macintosh",
+  "windows-874",
+  "windows-1250",
+  "windows-1251",
+  "windows-1252",
+  "windows-1253",
+  "windows-1254",
+  "windows-1255",
+  "windows-1256",
+  "windows-1257",
+  "windows-1258",
+  "x-mac-cyrillic",
+  "GBK",
+  "gb18030",
+  "Big5",
+  "EUC-JP",
+  "ISO-2022-JP",
+  "Shift_JIS",
+  "EUC-KR",
+  "replacement",
+  "UTF-16BE",
+  "UTF-16LE",
+  "x-user-defined"
+];
 
 Date.prototype.yyyymmdd = function() {
   var mm = this.getMonth() + 1; // getMonth() is zero-based
   var dd = this.getDate();
 
-  return [this.getFullYear(),
-          (mm>9 ? '' : '0') + mm,
-          (dd>9 ? '' : '0') + dd
-         ].join('');
+  return [
+    this.getFullYear(),
+    (mm > 9 ? "" : "0") + mm,
+    (dd > 9 ? "" : "0") + dd
+  ].join("");
 };
 
 angular.element(document).ready(function() {
@@ -90,13 +123,12 @@ angular.element(document).ready(function() {
   // Application code
   angular.module("app").controller("ParseController", function($scope) {
     $scope.angular_loaded = true;
-    $scope.ynab_cols = ["Date", "Payee", "Memo", "Amount"];
+    $scope.ynab_cols = ["Date", "Memo", "Amount"];
     $scope.data = {};
     $scope.ynab_map = {
-      Date: "Date",
-      Payee: "Payee",
-      Memo: "Memo",
-      Amount: "Amount"
+      Date: ["Date", "Buchungstag", "Kaufdatum"],
+      Memo: ["Memo", "Buchungstext", "Umsatz/Ort", "Payee"],
+      Amount: ["Amount", "Betrag", "Amount (EUR)", "Betrag in EUR"]
     };
     $scope.file = {
       encodings: encodings,

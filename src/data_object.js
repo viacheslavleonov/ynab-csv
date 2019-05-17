@@ -1,7 +1,7 @@
 // These are the columns that YNAB expects
 var ynab_cols;
 
-ynab_cols = ["Date", "Payee", "Memo", "Amount"];
+ynab_cols = ["Date", "Memo", "Amount"];
 
 // This class does all the heavy lifting.
 // It takes the and can format it into csv
@@ -49,7 +49,12 @@ window.DataObject = class DataObject {
           tmp_row = {};
           ynab_cols.forEach(function(col) {
             var cell;
-            cell = row[lookup[col]];
+            var lookupValues = lookup[col];
+            lookupValues.forEach(function(value) {
+              if (row[value]) {
+                cell = row[value];
+              }
+            });
             tmp_row[col] = cell;
           });
           value.push(tmp_row);
