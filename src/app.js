@@ -126,9 +126,9 @@ angular.element(document).ready(function() {
     $scope.ynab_cols = ["Date", "Memo", "Amount"];
     $scope.data = {};
     $scope.ynab_map = {
-      Date: ["Date", "Buchungstag", "Kaufdatum"],
-      Memo: ["Memo", "Buchungstext", "Umsatz/Ort", "Payee"],
-      Amount: ["Amount", "Betrag", "Amount (EUR)", "Betrag in EUR"]
+      Date: ["Date", "Buchungstag", "Kaufdatum", "Дата операции"],
+      Memo: ["Memo", "Buchungstext", "Umsatz/Ort", "Payee", "Место проведения"],
+      Amount: ["Amount", "Betrag", "Amount (EUR)", "Betrag in EUR", "Сумма и комиссия в валюте счета на дату отражения по счету"]
     };
     $scope.file = {
       encodings: encodings,
